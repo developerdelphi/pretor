@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="ui main container">
     <navbar/>
-    <router-view/>
+    <transition name="fade" mode="out-in">
+      <router-view/>
+    </transition>
+
   </div>
 </template>
 <script>

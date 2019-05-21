@@ -1,11 +1,11 @@
 <template>
-    <div class="item">
-        <div class="content">
+    <div class="row">
+        <div class="sixteen wide column">
             <div class="ui form">
                 <div class="fields">
                     <slot></slot>
                     <div class="field">
-                        <button @click="index()" class="ui labeled icon button teal">
+                        <button @click="fetchData()" class="ui labeled icon button teal">
                             <i class="search icon"></i>
                             Pesquisar
                         </button>
@@ -30,6 +30,21 @@
                 required: true,
                 type: Number
             }
+        },
+        methods: {
+            fetchData(){
+                this.$emit('loadData');
+            }
+        },
+        created() {
+            $('#viewSearchFilter')
+              .transition('fade up')
+            ;
+        },
+        destroyed() {
+            $('#viewSearchFilter')
+              .transition('fade up')
+            ;
         }
     }
 </script>

@@ -9,6 +9,7 @@ import App from './components/App.vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import {routes} from './routes'
+import Swal from 'sweetalert2'
 
 Vue.use(VueResource)
 
@@ -18,8 +19,19 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
     routes,
-    mode: 'history'
+    mode: 'history',
+    linkActiveClass: 'active'
 })
+
+export const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+
+window.Toast = Toast;
+window.Swal = Swal;
 
 new Vue({
     el: '#app',

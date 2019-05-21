@@ -1,5 +1,6 @@
 <template>
     <div v-if="params.total !== 0">
+
         <table class="ui striped table teal">
             <thead>
                 <tr>
@@ -29,7 +30,7 @@
                         <div class="ui three column row form">
                             <div class="column inline field">
                                 <label>Exibir</label>
-                                <select class="ui fluid dropdown" v-model="params.per_page" @change="fetchData">
+                                <select class="ui simple dropdown" v-model="params.per_page" @change="fetchData">
                                     <option>1</option>
                                     <option>5</option>
                                     <option>10</option>
@@ -50,7 +51,7 @@
                                 <label class="current_page"> de {{ params.last_page }}</label>
                             </div>
 
-                            <div class="column inline field">
+                            <div class="ui column inline field right">
                                 <div class="ui right floated pagination menu">
                                     <a href="#" @click.prevent="prev" class="icon item">
                                         <i class="left chevron icon"></i>
@@ -114,6 +115,9 @@
                 this.$emit('loadData');
             }
         },
+        created() {
+
+        }
     }
 </script>
 

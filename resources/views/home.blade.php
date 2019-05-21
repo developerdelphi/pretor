@@ -8,7 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>.:: Pretor - Gerenciamento de Processos ::.</title>
-
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="/css/app.css">
 </head>
 
