@@ -1,23 +1,20 @@
 <template>
-    <div class="row">
-        <div class="sixteen wide column">
-            <div class="ui form">
-                <div class="fields">
-                    <slot></slot>
-                    <div class="field">
-                        <button @click="fetchData()" class="ui labeled icon button teal">
-                            <i class="search icon"></i>
-                            Pesquisar
-                        </button>
-                    </div>
-                </div>
+    <div class="ui form">
+        <div class="fields">
+            <slot></slot>
+            <div class="field">
+                <button @click="fetchData()" class="ui labeled icon button teal">
+                    <i class="search icon"></i>
+                    Pesquisar
+                </button>
             </div>
-            <div v-if="total === 0" class="ui yellow message">Não existem registros para serem exibidos.</div>
-            <div v-else>
-                <a class="ui teal tag label">Total de registros localizados</a>
-                <div class="ui label teal">
-                    <i class="database icon"></i> {{ total }}
-                </div>
+        </div>
+            
+        <div v-if="total === 0" class="ui yellow message">Não existem registros para serem exibidos.</div>
+        <div v-else>
+            <a class="ui teal tag label">Total de registros localizados</a>
+            <div class="ui label teal">
+                <i class="database icon"></i> {{ total }}
             </div>
         </div>
     </div>

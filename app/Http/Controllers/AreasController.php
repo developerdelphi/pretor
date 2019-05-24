@@ -45,10 +45,9 @@ class AreasController extends Controller
       $areas = $areas->where('origin', 'LIKE', "%".$request->input('origin')."%");
       $origin = $request->input('origin');
     }
-  
-  
+
     $areas = $areas->paginate($per_page);
-  
+    
     $response = [
       'areas' => $areas,
       'params' => [

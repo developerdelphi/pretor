@@ -51,7 +51,7 @@
         },
         methods:{
             index(){
-                this.$http.get(this.buildUrl()).then(response =>{
+               axios.get(this.buildUrl()).then(response =>{
                     if(response.body.message){
                         this.message = response.body.message
                         this.status = response.body.status

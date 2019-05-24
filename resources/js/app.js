@@ -6,14 +6,13 @@ window.Vue = require('vue')
 
 import Vue from 'vue'
 import App from './components/App.vue'
-import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import {routes} from './routes'
 import Swal from 'sweetalert2'
 
-Vue.use(VueResource)
+//Vue.use(VueResource)
 
-Vue.http.options.root = 'http://localhost:8000';
+//Vue.http.options.root = 'http://localhost:8000';
 
 Vue.use(VueRouter)
 

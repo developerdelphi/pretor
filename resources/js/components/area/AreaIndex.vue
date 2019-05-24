@@ -1,28 +1,32 @@
 <template>
    <div>
-
-      <div class="ui internally celled grid">
-         <Heading
-               icone="adn"
-               titulo="Áreas"
-               subtitulo="Listagem de Áreas"
-               url="/AreaForm"
-               label="Criar"
-               @changeViewFilter="viewFilterChange"
-         ></Heading>
-         <transition name="fade" :duration="{ enter: 500, leave: 800 }">
-            <Search
-                  id="viewSearchFilter"
-                  :total="params.total"
-                  @click.native="index"
-                  v-show="viewFilter"
-            >
-               <div class="field">
-                  <input @keyup.enter="index()" v-model="filters.name" type="text" placeholder="Nome da Área">
-               </div>
-            </Search>
-         </transition>
+      <div class="ui grid">          
+         <div class="row">
+          <div class="left floated five wide column">        
+            <button class="circular ui mini icon button teal"  @click="viewFilter = !viewFilter">
+              <i class="icon filter"></i>
+            </button>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="right left floated five wide column">
+            <transition name="fade" :duration="{ enter: 600, leave: 800 }">
+              <Search
+                    id="viewSearchFilter"
+                    :total="params.total"
+                    @click.native="index"
+                    v-show="viewFilter"
+              >
+                  <div class="field">
+                    <input @keyup.enter="index()" v-model="filters.name" type="text" placeholder="Nome da Área">
+                  </div>
+              </Search>
+            </transition>
+          </div>
+        </div>
+         
       </div>
+         
       <DataGrid
          :thead="thead"
          :params="params"
@@ -37,16 +41,8 @@
       </DataGrid>
    </div>
 </template>
-<style scoped>
-   .fade-enter-active, .fade-leave-active {
-      transition: opacity .5s;
-   }
-   .fade-enter, .fade-leave-to {
-      opacity: 0;
-   }
-</style>
-<script>
-  import Heading from '../shared/header/Heading.vue'
+<script>  
+
   import Search from '../shared/header/Search.vue'
   import DataGrid from '../shared/data-grid/DataGrid.vue'
 
@@ -55,6 +51,8 @@
       return{
         areas: [],
         viewFilter: false,
+        viewForm: false,
+        viewBody: true,
         params: {
           total: 0,
           per_page: 30,
@@ -75,37 +73,31 @@
       }
     },
     components:{
-      Heading,
+     // Heading,
       Search,
-      DataGrid
+      DataGrid,
+     // AreaForm
     },
     created(){
-      this.index()
+      
     },
-    computed: {
-
+    mounted() {
+      this.index()
     },
     methods:{
       index(){
-        this.$http.get(this.buildUrl())
+        axios.get(this.buildUrl())
           .then(response =>{
-              if(response.body.message){
-                this.message = response.body.message;
-                this.status = response.body.status
-              }else{
-                this.areas = response.data.areas.data;
-                this.filters = response.data.filters;
-                this.params = response.data.params;
-              }
-              /*
-              Toast.fire({
-                type: 'success',
-                title: 'Consulta realizada!'
-              })
-
-               */
+              this.areas = response.data.areas.data;
+              this.filters = response.data.filters;
+              this.params = response.data.params;
             }
           )
+          .catch(error =>{
+              console.error(error);
+                //this.message = response.body.message;
+                //this.status = response.body.status             
+          })
       },
       buildUrl(){
         let current_page    = `?page=${this.params.current_page}`;
@@ -113,11 +105,10 @@
         let direction       = `&direction=${this.params.direction}`;
         let column          = `&column=${this.params.column}`;
         let name       = this.filters.name === '' ? '' : `&name=${this.filters.name}`;
-
-        return `api/areas${current_page}${per_page}${direction}${column}${name}`;
+       
+        return `http://localhost:8000/api/areas/${current_page}${per_page}${direction}${column}${name}`;
       },
       viewFilterChange(){
-
         this.viewFilter = !this.viewFilter;
       }
     }

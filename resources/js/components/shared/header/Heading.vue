@@ -1,29 +1,34 @@
 <template>
-    <div class="row" style="margin-top: 10px">
-        <div class="thirteen wide column middle">
-            <h2 class="ui aligned header">
-                <i class="icon massive teal" :class="icone"></i>
-                <div class="content">
-                    {{ titulo }}
-                    <div class="sub header">{{ subtitulo }}</div>
-                </div>
-            </h2>
-
+    <div class="col" style="margin-top: 10px">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card=title">
+                    <i class="fas fa-cubes"></i>{{ titulo }}</h5>
+                <p class="card-text">{{ subtitulo }}</p>
+                <ul class="nav justify-content-end">
+                    <li class="item">
+                        <a href="" class="nav-link primary">Criar</a>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    
+                    </div>
+            </div>
         </div>
         <div class="three wide column">
-            <div v-if="url" class="ui floated right">
+            <div v-if="url" class="ui floated right">                  
                 <i class="big icons">
-                    <router-link :to="url">
+                    <router-link class="ui toggle" to="index">
                         <i class="adn teal icon"></i>
-                        <i class="bottom right corner add icon"></i>
+                        <i class="bottom link right corner home icon"></i>
                     </router-link>
                 </i>
                 <i class="big icons">
-                    <a href="#" @click="changeFilter()" class="button">
-                        <i class="adn link teal icon"></i>
-                        <i class="bottom right corner filter icon"></i>
-                    </a>
-                </i>
+                    <router-link class="button" to="/areas/form">
+                        <i class="adn teal icon"></i>
+                        <i class="bottom right corner add icon"></i>
+                    </router-link>
+                </i>       
             </div>
         </div>
     </div>
@@ -49,10 +54,15 @@
             color: String,
             status: String,
             message: String,
-        },
-        methods:{
+            viewForm: Boolean,
+        },        
+        methods: {
             changeFilter(){
                 this.$emit('changeViewFilter');
+            },
+            showViewForm() {
+                this.changeViewForm = !this.viewForm;
+               // this.$emit('showViewForm', this.changeViewForm);
             }
         }
     }

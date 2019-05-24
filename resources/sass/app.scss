@@ -1,5 +1,8 @@
-@import "../assets/dist/semantic/semantic.min.css";
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
 
 @import "../../node_modules/@sweetalert2/themes/borderless/borderless.scss";
 
 @import "main.css";
+
+//@import "../assets/dist/semantic/semantic.min.css";

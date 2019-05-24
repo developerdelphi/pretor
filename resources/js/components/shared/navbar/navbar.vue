@@ -1,39 +1,35 @@
 <template>
-    <div>
-        <div class="ui inverted top fixed icon menu">
-            <router-link to="/" class="header item">
-                <i class="large home cap icon"></i>
+    <div class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">        
+        <router-link to="/" class="navbar-brand">
+            <i class="fas fa-user-graduate"></i>
+            Pretor
+        </router-link>      
+        <ul class="navbar-nav mr-auto">                        
+            <router-link to="paises" tag="li" class="nav-item">
+                <a class="nav-link">Paises</a>
             </router-link>
-
-            <div class="item">
-                <div class="ui simple dropdown">
-                    <i class="flag icon"></i>
-                    Locais <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <router-link to="/cidades" class="item">Cidades</router-link>
-                        <router-link to="/estados" class="item">Estados</router-link>
-                        <router-link to="/paises" class="item">Paises</router-link>
-                    </div>
+            <li class="nav-item dropdown">
+                <a class="btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cadastro
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <router-link to="areas" tag="li" class="dropdown-item">Áreas</router-link>
+                    <a class="dropdown-item" href="#">Ação</a>                    
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Algo mais aqui</a>
                 </div>
-            </div>
-            <div class="ui simple dropdown item">
-                Cadastrar
-                <i class="dropdown icon"></i>
-                <div class="menu">
-
-                        <router-link to="/areas" class="item">Áreas</router-link>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+            </li>
+            <router-link to="areas" tag="li" class="nav-item">
+                <a class="nav-link">Areas</a>
+            </router-link>
+        </ul>
+    </div>  
 </template>
 
 <script>
     export default {
         mounted() {
-            $('.dropdown').dropdown;
+            //$('.dropdown').dropdown;
 
         }
     }
