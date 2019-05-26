@@ -1,8 +1,17 @@
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
 
-@import "../../node_modules/@sweetalert2/themes/borderless/borderless.scss";
+//material dashboard theme dark
+@import "../assets/material-dashboard/material-dashboard";
+@import "../assets/material-dashboard/css/material-dashboard.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css";
 
-@import "main.css";
+.nav-pills .nav-link.active{
+  background-color: #913f9e !important;
+  border-color: rgba(139,18,176,0.5);
+}
 
-//@import "../assets/dist/semantic/semantic.min.css";
+.dropdown-item.active {
+  background-color: #913f9e !important;
+  color: #ffffff !important;
+  cursor: default;
+}

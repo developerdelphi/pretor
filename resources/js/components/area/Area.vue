@@ -1,15 +1,14 @@
 <template>
-    <div class="content">
-        <div class="row">
-            <Heading
-                icone="adn"
-                titulo="Áreas"
-                subtitulo="Listagem de Áreas"
-                url="/areas/form"
-                label="Criar"
-                @changeViewFilter="viewFilterChange"
-            ></Heading>            
-        </div>
+   <div class="container-fluid">
+      <Heading
+          icone="adn"
+          titulo="Áreas"
+          subtitulo="Listagem de Áreas"
+          url="/areas/form"
+          label="Criar"
+          @changeViewFilter="viewFilterChange"
+      ></Heading>
+
         <router-view />
     </div>
 </template>

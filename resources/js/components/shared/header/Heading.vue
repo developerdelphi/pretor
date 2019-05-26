@@ -1,37 +1,26 @@
 <template>
-    <div class="col" style="margin-top: 10px">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card=title">
-                    <i class="fas fa-cubes"></i>{{ titulo }}</h5>
-                <p class="card-text">{{ subtitulo }}</p>
-                <ul class="nav justify-content-end">
-                    <li class="item">
-                        <a href="" class="nav-link primary">Criar</a>
-                    </li>
-                </ul>
-                <div class="card-body">
-                    
-                    </div>
-            </div>
+    
+        <div class="card mt-5">
+           
+           <div class="card-header card-header-warning">
+              <div class="card-icon">
+                 <i class="material-icons">content_copy</i>
+              </div>
+              <div class="float-left">
+                 <h3 class="card-title">
+                    {{ titulo }}</h3>
+                 <h6 class="card-subtitle mb-2">{{subtitulo}}</h6>
+              </div>
+              <ul class="nav nav-pills card-header-pills justify-content-end">
+                 <router-link class="nav-link btn-info" tag="li" to="/areas/form">
+                    <i class="fas fa-plus"></i>
+                 </router-link>
+                 <router-link class="nav-link btn-warning" tag="li" to="/areas/index">
+                    <i class="material-icons">view_list</i>
+                 </router-link>
+              </ul>
+           </div>
         </div>
-        <div class="three wide column">
-            <div v-if="url" class="ui floated right">                  
-                <i class="big icons">
-                    <router-link class="ui toggle" to="index">
-                        <i class="adn teal icon"></i>
-                        <i class="bottom link right corner home icon"></i>
-                    </router-link>
-                </i>
-                <i class="big icons">
-                    <router-link class="button" to="/areas/form">
-                        <i class="adn teal icon"></i>
-                        <i class="bottom right corner add icon"></i>
-                    </router-link>
-                </i>       
-            </div>
-        </div>
-    </div>
 </template>
 
 <script>

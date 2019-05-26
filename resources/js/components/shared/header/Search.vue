@@ -32,16 +32,6 @@
             fetchData(){
                 this.$emit('loadData');
             }
-        },
-        created() {
-            $('#viewSearchFilter')
-              .transition('fade up')
-            ;
-        },
-        destroyed() {
-            $('#viewSearchFilter')
-              .transition('fade up')
-            ;
         }
     }
 </script>

@@ -1,45 +1,22 @@
 <template>
-   <div>
-      <div class="ui grid">          
-         <div class="row">
-          <div class="left floated five wide column">        
-            <button class="circular ui mini icon button teal"  @click="viewFilter = !viewFilter">
-              <i class="icon filter"></i>
-            </button>
-          </div>
-        </div>  
-        <div class="row">
-          <div class="right left floated five wide column">
-            <transition name="fade" :duration="{ enter: 600, leave: 800 }">
-              <Search
-                    id="viewSearchFilter"
-                    :total="params.total"
-                    @click.native="index"
-                    v-show="viewFilter"
-              >
-                  <div class="field">
-                    <input @keyup.enter="index()" v-model="filters.name" type="text" placeholder="Nome da Área">
-                  </div>
-              </Search>
-            </transition>
-          </div>
-        </div>
-         
-      </div>
-         
-      <DataGrid
+   <DataGrid
          :thead="thead"
          :params="params"
          :colspan="3"
-         @loadData="index"
-      >
-         <tr v-for="area in areas" :key="area.id">
-            <td>{{ area.name }}</td>
-            <td>{{ area.origin }}</td>
-            <td>Ações</td>
-         </tr>
-      </DataGrid>
-   </div>
+         @loadData="index">
+      
+      <tr v-for="area in areas" :key="area.id">
+         <td>{{ area.name }}</td>
+         <td>{{ area.origin }}</td>
+         <td class="td-actions text-right m-0 p-0 w-25">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Exemplo básico">
+               <button type="button" rel="tooltip" class="btn btn-info btn-link btn-icon btn-sm"><i class="material-icons">create</i></button>
+               <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm"><i class="material-icons">delete_sweep</i></button>
+            </div>
+         </td>
+      </tr>
+      
+   </DataGrid>
 </template>
 <script>  
 

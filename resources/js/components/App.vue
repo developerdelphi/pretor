@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid sm">
+  <div id="app" class="container-fluid dark-edition">
     <navbar/>
     <transition name="fade" mode="out-in">
       <router-view/>
