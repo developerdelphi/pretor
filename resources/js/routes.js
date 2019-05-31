@@ -5,6 +5,9 @@ import CidadeIndex from './components/cidade/CidadeIndex.vue'
 import Area from './components/area/Area.vue'
 import AreaIndex from './components/area/AreaIndex.vue'
 import AreaForm from './components/area/AreaForm.vue'
+import Configure from './components/shared/conf/conf.vue'
+import Calendar from './components/agenda/calendar.vue'
+
 
 export const routes = [
     {
@@ -26,6 +29,14 @@ export const routes = [
     {
         path: '/cidades',
         component: CidadeIndex
+    },
+    {
+        path: '/configure',
+        component: Configure
+    },
+    {
+        path: '/agenda',
+        component: Calendar
     },
     {
         path: '/areas',

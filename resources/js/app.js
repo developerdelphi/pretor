@@ -5,11 +5,13 @@ require('./main')
 window.Vue = require('vue')
 
 import Vue from 'vue'
-import App from './components/App.vue'
 import VueRouter from 'vue-router'
 import {routes} from './routes'
 import Swal from 'sweetalert2'
 import VueResource from 'vue-resource'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify'
+import App from './components/App.vue'
 
 Vue.use(VueResource)
 
@@ -22,6 +24,8 @@ const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'active'
 })
+
+Vue.use(Vuetify)
 
 export const Toast = Swal.mixin({
     toast: true,

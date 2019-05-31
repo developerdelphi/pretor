@@ -1,23 +1,7 @@
 
-//material dashboard theme dark
-@import "../assets/material-dashboard/material-dashboard";
-//@import "bootswatch";
-//@import "variables";
-@import "../assets/material-dashboard/css/material-dashboard.css";
-@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons";
 
-body{
-    background: #1a2035;
-}
-.nav-pills .nav-link.active{
-  background-color: #913f9e !important;
-  border-color: rgba(139,18,176,0.5);
-}
+@import '../../node_modules/vuetify/dist/vuetify.min.css';
 
-.dropdown-item.active {
-  background-color: #913f9e !important;
-  color: #ffffff !important;
-  cursor: default;
-}
+//@import '../assets/material-dashboard/styles/index.scss';
 

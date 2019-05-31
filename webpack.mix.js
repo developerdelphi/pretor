@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js([
     'resources/js/app.js',
-    'resources/assets/material-dashboard/js/material-dashboard.js',
-    'resources/assets/material-dashboard/js/core/bootstrap-material-design.min.js',
+    //'resources/assets/material-dashboard/js/material-dashboard.js',
+    //'resources/assets/material-dashboard/js/core/bootstrap-material-design.min.js',
   ], 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
