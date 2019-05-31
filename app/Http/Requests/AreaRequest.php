@@ -27,7 +27,6 @@ class AreaRequest extends Request
    */
   public function rules(Area $area)
   {
-    
     $rules = [
       'name' => 'required|min:3|max:191|unique',
       'origin' => [
@@ -36,7 +35,7 @@ class AreaRequest extends Request
         //Rule::in(array_keys($area->originValue()))
       ]
     ];
-    
+
     return $rules;
   }
 }

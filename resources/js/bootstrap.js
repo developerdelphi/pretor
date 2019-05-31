@@ -12,7 +12,7 @@ try {
 
     //Semantic ui
     //require('../assets/dist/semantic/semantic')
-    //require('bootstrap');
+    require('bootstrap');
 
 
 } catch (e) {}

@@ -1,21 +1,19 @@
 <template>
-    <div class="ui form">
-        <div class="fields">
-            <slot></slot>
-            <div class="field">
-                <button @click="fetchData()" class="ui labeled icon button teal">
-                    <i class="search icon"></i>
-                    Pesquisar
+    <div class="content">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control form-control-sm" placeholder="Buscar por..." aria-label="Nome para buscar" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-sm" type="button" id="button-addon2" @click.prevent="fetchData">
+                    <i class="material-icons">search</i>
                 </button>
             </div>
         </div>
-            
-        <div v-if="total === 0" class="ui yellow message">Não existem registros para serem exibidos.</div>
+        <span v-if="total === 0" class="badge badge-warning">Não existem registros para serem exibidos.</span>
         <div v-else>
-            <a class="ui teal tag label">Total de registros localizados</a>
-            <div class="ui label teal">
-                <i class="database icon"></i> {{ total }}
-            </div>
+            <span class="badge badge-warning">
+                Total de registros localizados
+                <span class="badge badge-pill badge-primary">{{ total }}</span>
+            </span>
         </div>
     </div>
 </template>
@@ -31,6 +29,7 @@
         methods: {
             fetchData(){
                 this.$emit('loadData');
+                console.log('buscar pelo filtro...')
             }
         }
     }

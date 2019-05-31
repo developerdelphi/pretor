@@ -1,85 +1,111 @@
 <template>
     <div v-if="params.total !== 0" class="card">
         <div class="card-body">
+            <Search v-show="showFilter" :total="params.total"/>
             <div class="table-responsive table-sm">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
-                            <th class="text-primary w-auto p-3" v-for="item in thead" :key="item.index"
+                        <tr class="">
+                            <th class="text-primary w-auto" v-for="item in thead" :key="item.index"
                                 :class="item.style ? item.style : null"
                                 :colspan="item.columns ? item.columns : null">
                                 <div v-if="item.sortable" @click="sort(item.column)" class="">
-                                    <h5 class="text-uppercase font-weight-bold">{{ item.title }}</h5>
+                                    <h6 class="text-uppercase font-weight-bold m-0 p-0">{{ item.title }}</h6>
                                     <span v-if="params.column === item.column">
                                         <span v-if="params.direction === item.direction">&#x2582;</span>
                                         <span v-else>&#x25BC;</span>
                                     </span>
                                 </div>
                                 <div v-else>
-                                    <h5 class="text-uppercase font-weight-bold">{{ item.title }}</h5>
+                                    <h6 class="text-uppercase font-weight-bold">{{ item.title }}</h6>
                                 </div>
                             </th>
-                            <th class="w-auto p-3">
-                                <h5 class="text-warning text-uppercase font-weight-bold">Ações</h5>
+                            <th class="w-auto">
+                                <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Ações no cadastro">
+                                    <div class="btn-group mr-2 " role="group" aria-label="Ações">
+                                        <button type="button" class="btn btn-info btn-link btn-icon btn-sm" @click.stop.prevent="showFilterView">
+                                            <i class="material-icons">search</i>
+                                        </button>
+                                    </div>
+                                </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <slot></slot>
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <th :colspan="colspan ? colspan : null">
-                            <div class="ui grid">
-                                <div class="ui three column row form">
-                                    <div class="column inline field">
-                                        <label>Exibir</label>
-                                        <select class="ui simple dropdown" v-model="params.per_page" @change="fetchData">
-                                            <option>1</option>
-                                            <option>3</option>
-                                            <option>5</option>
-                                            <option>10</option>
-                                            <option>25</option>
-                                            <option>50</option>
-                                            <option>75</option>
-                                            <option>100</option>
-                                        </select>
-                                        <label>registros</label>
-                                    </div>
-        
-                                    <div class="ui column inline center aligned grid field">
-                                        <label class="current_page">Página atual</label>
-                                        <input
-                                                type="text"
-                                                v-model="params.current_page"
-                                                class="two wide field"
-                                                @keyup.enter="fetchData"
-                                        >
-                                        <label class="current_page"> de {{ params.last_page }}</label>
-                                    </div>
-        
-                                    <div class="ui column inline field right">
-                                        <div class="ui right floated pagination menu">
-                                            <a href="#" @click.prevent="prev" class="icon mini item">
-                                                <i class="left chevron icon"></i>
-                                            </a>
-                                            <a href="#" @click.prevent="next" class="icon mini item">
-                                                <i class="right chevron icon"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </th>
-                    </tr>
-                    </tfoot>
                 </table>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 form-group">
+                    <div class=" btn-group btn-group-sm">
+                        <label for="dropdownMenuButton">Items por página</label>
+                        <div class="dropdown btn-sm">
+                            <button
+                                    class="btn btn-secondary dropdown-toggle"
+                                    type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"
+                                    v-model="params.per_page"
+                                    @change="fetchData"
+                            >
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">1</a>
+                                <a class="dropdown-item" href="#">5</a>
+                                <a class="dropdown-item" href="#">10</a>
+                                <a class="dropdown-item" href="#">15</a>
+                                <a class="dropdown-item" href="#">20</a>
+                                <a class="dropdown-item" href="#">25</a>
+                                <a class="dropdown-item" href="#">50</a>
+                                <a class="dropdown-item" href="#">75</a>
+                                <a class="dropdown-item" href="#">100</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 form-group">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <label>Página atual</label>
+                            </div>
+                            <div class="col-2">
+                                <input
+                                        type="text"
+                                        v-model="params.current_page"
+                                        class="form-control"
+                                        @keyup.enter="fetchData"
+                                >
+                            </div>
+                            <div class="col">
+                                <label class="current_page"> de {{ params.last_page }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <nav aria-label="Navegação entre registros">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link btn btn-sm btn-primary" @click.prevent="prev">Anterior</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link btn btn-sm btn-primary" @click.prevent="next">Próximo</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Search from '../header/Search'
     export default {
         props:{
             thead: {
@@ -92,6 +118,14 @@
             },
             params: {
                 type: Object
+            }
+        },
+        components: {
+            Search
+        },
+        data(){
+            return{
+                showFilter: false
             }
         },
         methods: {
@@ -122,6 +156,9 @@
             },
             fetchData(){
                 this.$emit('loadData');
+            },
+            showFilterView() {
+                this.showFilter = ! this.showFilter;
             }
         },
         created() {

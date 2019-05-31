@@ -1,7 +1,7 @@
 <div class="card">
    <div class="card-body">
       <div class="">
-         <button class="btn btn-primary"  @click="viewFilter = !viewFilter">
+         <button class="btn btn-primary">
             <i class="fas fa-filter"></i>
          </button>
       </div>
@@ -22,5 +22,4 @@
          </transition>
       </div>
    </div>
-
 </div>

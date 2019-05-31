@@ -43472,6 +43472,10 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
   }
 }
 
+body {
+  background: #1a2035;
+}
+
 .nav-pills .nav-link.active {
   background-color: #913f9e !important;
   border-color: rgba(139, 18, 176, 0.5);

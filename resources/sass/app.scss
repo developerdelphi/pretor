@@ -1,10 +1,15 @@
 
 //material dashboard theme dark
 @import "../assets/material-dashboard/material-dashboard";
+//@import "bootswatch";
+//@import "variables";
 @import "../assets/material-dashboard/css/material-dashboard.css";
 @import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css";
 
+body{
+    background: #1a2035;
+}
 .nav-pills .nav-link.active{
   background-color: #913f9e !important;
   border-color: rgba(139,18,176,0.5);
@@ -15,3 +20,4 @@
   color: #ffffff !important;
   cursor: default;
 }
+

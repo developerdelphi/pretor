@@ -10,7 +10,7 @@
         </div>
         <DataGrid :thead="thead" :params="params" @loadData="index" :colspan="0">
             <tr v-for="pais in paises" :key="pais.id">
-                <td>{{pais.descricao}}</td>
+                <td>{{  pais.descricao }}</td>
             </tr>
         </DataGrid>
     </div>

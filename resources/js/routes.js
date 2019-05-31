@@ -29,11 +29,12 @@ export const routes = [
     },
     {
         path: '/areas',
+        //name: 'areas',
         component: Area,
         children: [
-            { path: '', component: AreaIndex },
-            { path: 'index', component: AreaIndex },
-            { path: 'form', component: AreaForm },
+            { path: '', name: 'index', component: AreaIndex },
+            { path: ':view', name: 'index', component: AreaIndex },
+            { path: ':view', name: 'form', component: AreaForm },
         ]
     }
 ]
