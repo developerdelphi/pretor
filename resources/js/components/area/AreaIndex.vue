@@ -1,74 +1,146 @@
 <template>
-    <DataGrid
-            :thead="thead"
-            :params="params"
-            :colspan="3"
-            @loadData="index"
-    >
-        <tr v-for="area in areas" :key="area.id">
-            <td>{{ area.name }}</td>
-            <td>{{ area.origin }}</td>
-            <td class="td-actions text-right m-0 p-0 w-25">
-                <div class="btn-group btn-group-sm" role="group" aria-label="Exemplo básico">
-                    <button type="button" rel="tooltip" class="btn btn-info btn-link btn-icon btn-sm"><i class="material-icons">create</i></button>
-                    <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm"><i class="material-icons">delete_sweep</i></button>
-                </div>
-            </td>
-        </tr>
-    </DataGrid>
+    <div>
+        <v-card>
+            <v-card-title>
+                <template v-if="showSearch">
+                    <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Pesquisar por..."
+                            single-line
+                            hide-details
+                    ></v-text-field>
+                </template>
+            </v-card-title>
+            <v-dialog v-model="showForm" max-width="500px">
+                <template v-slot:activator="{ on }">
+
+                </template>
+                <v-card>
+                    <v-card-title>
+                        <span class="headline">Cadastro de {{ headerWindow.title }}</span>
+                    </v-card-title>
+
+                    <v-card-text>
+                        <v-container grid-list-md>
+                            <v-layout wrap>
+                                <v-flex xs12 sm6 md4>
+                                    <v-text-field v-model="areas.name" label="Nome da Área"></v-text-field>
+                                </v-flex>
+                                <v-flex xs12 sm6 md4>
+                                    <v-text-field v-model="areas.origin" label="Origem do processo"></v-text-field>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+                        <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-data-table
+                    :headers="headers"
+                    :items="areas"
+                    :expand="expand"
+                    item-key="id"
+                    :search="search"
+                    class="elevation-2"
+            >
+                <template v-slot:no-data>
+                    <v-alert :value="true" color="error" icon="warning">
+                        Desculpe-nos, mas não foram localizados dados.
+                    </v-alert>
+                </template>
+                <template v-slot:no-results>
+                    <v-alert :value="true" color="warning" icon="warning">
+                        A pesquisa por "{{ search }}" não localizou informações.
+                    </v-alert>
+                </template>
+                <template v-slot:items="props">
+                    <tr @click="props.expanded = !props.expanded">
+                        <td>{{ props.item.name }}</td>
+                        <td class="text-xs-right">{{ props.item.origin }}</td>
+                        <td class="justify-center layout right px-0">
+                            <v-btn fab dark small color="warning" @click="">
+                                <v-icon>edit</v-icon>
+                            </v-btn>
+                            <v-btn fab dark small @click="" color="red darken-4">
+                                <v-icon>delete</v-icon>
+                            </v-btn>
+                        </td>
+                    </tr>
+                </template>
+                <template v-slot:pageText="props">
+                    Registros {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
+                </template>
+            </v-data-table>
+        </v-card>
+    </div>
 </template>
 <script>
-    import DataGrid from '../shared/data-grid/DataGrid.vue';
-    import { constants } from 'crypto';
+    import { mapMutations } from "vuex"
+    import { mapState } from "vuex"
+
     export default {
         data(){
             return{
-                    areas: [],
-                    viewFilter: false,
-                    viewForm: false,
-                    viewBody: true,
-                    params: {
+                areas: [],
+                search: '',
+                expand: true,
+                params: {
                     total: 0,
                     per_page: 30,
                     current_page: 1,
                     column: 'name',
                     direction: 'asc'
                 },
-                    thead:[
-                        {title: 'Áreas', Column: 'name', direction:'desc', sortable: true},
-                        {title: 'Origem', Column: 'origin', direction:'desc', sortable: true}
-                    ],
-                    message: null,
-                    status: null,
-                    filters: {
+                message: null,
+                status: null,
+                filters: {
                     name: '',
-                    origin: ''
-                }
+                    origin: '',
+                },
+                headers: [
+                    {text: 'Áreas', align: 'center', sortable: true, value: 'name'},
+                    { text: 'Origem', align: 'center', value: 'origin' },
+                ]
             }
-        },
-        components:{
-            DataGrid,
-        },
-        created(){
-
         },
         mounted() {
             this.index()
         },
+        computed: {
+            ...mapState(['showSearch', 'showForm','headerWindow']),
+        },
         methods:{
-            index(){
-                axios.get(this.buildUrl())
-                    .then(response =>{
-                        this.areas = response.data.areas.data;
-                        this.filters = response.data.filters;
-                        this.params = response.data.params;
-                    }
-                )
-                .catch(error =>{
-                    console.error(error);
-                        //this.message = response.body.message;
-                        //this.status = response.body.status
-                })
+            ...mapMutations(['showLoading', 'hideLoading','changeSearch']),
+            async index(){
+                try {
+                    this.showLoading({
+                        title: 'Carregando dados, aguarde...',
+                        color: 'primary'
+                    })
+
+                    axios.get(this.buildUrl())
+                        .then(response => {
+                            this.areas = response.data.areas.data;
+                            this.filters = response.data.filters;
+                            this.params = response.data.params;
+                            this.loading = !this.loading;
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            //this.message = response.body.message;
+                            //this.status = response.body.status
+                        })
+                }catch (e) {
+                    console.log(e)
+
+                }finally {
+                    this.hideLoading()
+                }
             },
             buildUrl(){
                 let current_page    = `?page=${this.params.current_page}`;
@@ -81,7 +153,9 @@
             },
             viewFilterChange(){
                 this.viewFilter = !this.viewFilter;
-            }
+            },
+            close(e){},
+            save(e){}
         }
     }
 </script>

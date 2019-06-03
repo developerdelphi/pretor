@@ -43,9 +43,8 @@ export const routes = [
         //name: 'areas',
         component: Area,
         children: [
-            { path: '', name: 'index', component: AreaIndex },
-            { path: ':view', name: 'index', component: AreaIndex },
-            { path: ':view', name: 'form', component: AreaForm },
+            { path: 'index', component: AreaIndex },
+            { path: 'form', component: AreaForm },
         ]
     }
 ]

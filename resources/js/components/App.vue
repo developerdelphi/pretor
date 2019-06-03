@@ -35,7 +35,7 @@
         </v-toolbar>
         <v-list dense>
             <v-divider></v-divider>
-            <v-list-tile @click="">
+            <v-list-tile to="/">
                 <v-list-tile-action>
                     <v-icon>home</v-icon>
                 </v-list-tile-action>
@@ -64,10 +64,10 @@
                             </v-list-tile-action>
                         </v-list-tile>
                     </template>
-                     <v-list-tile>
+                     <v-list-tile to="areas/index">
                             <v-list-tile-title>Áreas</v-list-tile-title>
                                 <v-list-tile-action>
-                                <v-icon>account_circle</v-icon>
+                                <v-icon>content_copy</v-icon>
                             </v-list-tile-action>
                         </v-list-tile>
                 </v-list-group>
@@ -92,19 +92,45 @@
     </v-toolbar>
     <v-content>
       <v-container fluid>
-        <v-layout align-center justify-center>
-            <router-view />
+        <v-layout row wrap align-center justify-center>
+            <v-dialog
+                    v-model="loading.active"
+                    hide-overlay
+                    persistent
+                    width="300"
+            >
+                <v-card
+                        color="loading.color"
+                        dark
+                >
+                    <v-card-text>
+                        {{loading.title}}
+                        <v-progress-linear
+                                indeterminate
+                                color="white"
+                                class="mb-0"
+                        ></v-progress-linear>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+            <v-fade-transition mode="out-in">
+                <router-view />
+            </v-fade-transition>
+
         </v-layout>
       </v-container>
     </v-content>
     <v-footer :inset="footer.inset" app>
-      <span class="px-3">&copy; {{ new Date().getFullYear() }}</span>
+      <span class="px-3">&copy; {{ new Date().getFullYear() }} Leo Buchner</span>
     </v-footer>
   </v-app>
 </template>
 <script>
+
+    import { mapState } from "vuex"
   //import navbar from './shared/navbar/navbar.vue'
   //import dashboard from './dashboard/dashboard.vue'
+
 export default {
     components: {
         // navbar,
@@ -125,6 +151,9 @@ export default {
                 inset: false
             }
         }
+    },
+    computed: {
+        ...mapState(['loading'])
     }
 };
 </script>

@@ -1,38 +1,48 @@
 <template>
-   <div class="container-fluid">
-      <Heading
-          :icone="icone"
-          titulo="Áreas"
-          url="areas"
-          subtitulo="Listagem de Áreas"
-          :linksMenuHead="linksMenuHeading"
-          @changeViewFilter="viewFilterChange"
-      ></Heading>
-
-        <router-view />
-        
-    </div>
+    <v-flex sm12>
+        <v-card
+            elevation="5"
+            dark
+            flat
+            hover
+        >
+            <Heading
+                    icone="headerWindow.icon"
+                    color="purple"
+                    titulo="headerWindow.title"
+                    subtitulo="headerWindow.subtitle"
+            ></Heading>
+            <v-fade-transition mode="out-in">
+                <router-view />
+            </v-fade-transition>
+        </v-card>
+    </v-flex>
 </template>
 
 <script>
-import Heading from '../shared/header/Heading.vue';
+
+    import Heading from '../shared/header/Heading.vue';
+    import { mapState } from "vuex"
+    import { mapMutations } from "vuex"
+
 export default {
     data(){
         return{
-            linksMenuHeading: [
-                {link: 'form', icon: 'add', btn:'btn btn-primary'},
-                {link: 'index', icon: 'view_list', btn:'btn btn-info'}
-            ],
             icone: "content_copy"
         }
     },
     components: {
         Heading
     },
+    computed: {
+        ...mapState(['showSearch', 'headerWindow'])
+    },
     methods: {
-        viewFilterChange(){
-            this.viewFilter = !this.viewFilter;
-        }
+        ...mapMutations(['setheaderWindow']),
+
+    },
+    created() {
+        this.setheaderWindow({title: 'Áreas', subTitle: 'Cadastro de Áreas', color: 'teal darken-1', icon: 'content_copy'})
     }
 
 }

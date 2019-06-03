@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::post('areas/store', 'AreasController@store');
+Route::post('areas/store', 'AreasController@store');
 Route::apiResource('areas', 'AreasController');
 //Route::apiResource('areas', 'AreasController',['except'=>['create', 'edit']]);
 

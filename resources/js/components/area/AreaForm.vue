@@ -1,84 +1,94 @@
 <template>
-	<div class="container">
-        <div class="card p-1">
-            <div class="card-header card-header-info mb-3">
-                <h5 class="card-title">Cadastro de Áreas</h5>
-            </div>
-            <form>            
-                <div class="form-group row">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="material-icons">content_copy</i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" v-model="name" placeholder="Nome da Área">
-                        <span class="form-control-feedback">
-                            <i class="material-icons">done</i>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group row ml-2">
-                    <label for="" class="bmd-label-floating font-weight-bold pr-2">Área de atuação do processo: </label>
-                    <div class="form-check form-check-radio col-sm-2">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" value="Judicial" name="origin" id="origin1" v-model="origin" checked>
-                            Judicial
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
+    <v-form>
+        <v-container>
+            <v-layout row wrap>
+                <v-flex xs12>
+                    <v-text-field
+                            prepend-icon="content_copy"
+                            v-model="area.name"
+                            :rules="nameRules"
+                            :error-messages="errors.name"
+                            label="Nome da Área Processual"
+                            required
+                            color="teal accent-2"></v-text-field>
 
-                    <div class="form-check form-check-radio col-sm-2">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" value="Administrativo" name="origin" id="exampleRadios2" v-model="origin" >
-                            Administrativo
-                            <span class="circle">
-                                <span class="check"></span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-                <hr>
-                <div class="btn-toolbar justify-content-left">
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Salvar ou Sair">
-                        <button class="btn btn-primary btn-sm" @click.prevent="salvar"> <i class="material-icons">save</i> Salvar</button>
-                        <button class="btn btn-secundary btn-sm"><i class="material-icons">cancel</i> Cancelar</button>
-                    </div>                    
-                </div>
-            </form>
-        </div>
-	</div>
+                </v-flex>
+                <v-flex xs12>
+                    <v-select
+                            :items="items"
+                            item-text="label"
+                            item-value="value"
+                            :error-messages="errors.origin"
+                            prepend-icon="party_mode"
+                            v-model="area.origin"
+                            :rules="originRules"
+                            label="Origem do Processo"
+                            required
+                            color="teal accent-3">
+                    </v-select>
+                </v-flex>
+                <v-divider></v-divider>
+                <v-flex xs12>
+                    <v-btn color="primary" @click.stop.prevent="salvar">
+                        <v-icon>save</v-icon>
+                        Salvar
+                    </v-btn>
+                    <v-btn color="secundary" to="index">
+                        <v-icon>cancel</v-icon>
+                        Cancelar
+                    </v-btn>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-form>
 </template>
 
 <script>
+
+    import { mapMutations } from 'vuex'
+
 export default {
     data() {
         return {
             message: '',
             status: '',
+            errors: [],
+            area: {
+                name: '',
+                origin: ''
+            },
+            items: [
+                {label: 'Judicial', value: 'Judicial'},
+                {label:'Administrativo', value: 'Administrativo'}
+            ],
             name: '',
-            origin: ''
+            origin: '',
+            nameRules: [
+                v => !!v || 'O nome é necessário!',
+                v => v.length >= 3 || 'O nome necessita ser maior que 3 caracteres!'
+            ],
+            originRules: [
+                v => !!v || 'O campo Origem é necessário ter um valor!',
+                v => v.length >= 3 || 'Origem necessita ser maior que 3 caracteres!'
+            ]
         }
     },
     methods: {
-        salvar() {
-            let data = [{
-                name: this.name,
-                origin: this.origin,
-                _method: 'PUT'
-            }];
-            axios.put('/api/areas/store', data).then(response =>{
-                if(response.body.message){
-                    this.message    = response.body.message
-                    this.status     = response.body.status
-                }else{
-                    this.estados    = response.data.estados.data
-                    this.filters    = response.data.filters
-                    this.params     = response.data.params
-                }
-            })
+        ...mapMutations(['showLoading', 'hideLoading','changeSearch']),
+        async salvar() {
+                console.log('chamando axios...')
+                this.showLoading({title: 'Carregando dados', color: 'primary'})
+                this.$http.post('/api/areas/store', this.area)
+                    .then(function (response) {
+                        console.log('resposta' + response)
+                        this.errors = response.errors
+                    })
+                    .catch(function (error) {
+                        console.log('deu ruim...')
+                        console.log(error.body)
+                        this.errors = error.body.errors
+                    })
+                this.hideLoading()
         },
 
     },
