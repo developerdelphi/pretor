@@ -24,9 +24,18 @@ class AreaRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|min:3|alpha',
+            'name'  => 'required|min:3',
             'origin'=> 'required'
             //
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'É necessário informar um Nome de Área do Processo',
+            'name.min' => 'É necessário informar um Nome com mínimo de 3 caracteres',
+            'origin.required'  => 'É necessário informar a Origem do processo',
         ];
     }
 }

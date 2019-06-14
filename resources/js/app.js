@@ -13,9 +13,9 @@ import VueResource from 'vue-resource'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify'
 import pt from 'vuetify/es5/locale/pt'
-import en from 'vuetify/es5/locale/en'
 import App from './components/App.vue'
 import store from './store'
+import Mixins from './mixin'
 
 Vue.use(VueResource)
 
@@ -63,7 +63,7 @@ Vue.use(Vuetify,{
     iconfont: 'md',
     icons: MY_ICONS,
     lang:{
-          locales: {en, pt},
+          locales: {pt},
           current: 'pt'
     }
 })
@@ -79,6 +79,7 @@ window.Toast = Toast;
 window.Swal = Swal;
 
 new Vue({
+   // mixins: [Mixins],
     router,
     store,
     el: '#app',

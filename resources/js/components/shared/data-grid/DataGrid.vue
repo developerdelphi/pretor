@@ -88,16 +88,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <nav aria-label="Navegação entre registros">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link btn btn-sm btn-primary" @click.prevent="prev">Anterior</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link btn btn-sm btn-primary" @click.prevent="next">Próximo</a>
-                            </li>
-                        </ul>
-                    </nav>
+
                 </div>
             </div>
         </div>
@@ -161,9 +152,6 @@
                 this.showFilter = ! this.showFilter;
             }
         },
-        created() {
-
-        }
     }
 </script>
 

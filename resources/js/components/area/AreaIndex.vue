@@ -25,10 +25,10 @@
                         <v-container grid-list-md>
                             <v-layout wrap>
                                 <v-flex xs12 sm6 md4>
-                                    <v-text-field v-model="areas.name" label="Nome da Área"></v-text-field>
+                                    <v-text-field v-model="table.name" label="Nome da Área"></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 sm6 md4>
-                                    <v-text-field v-model="areas.origin" label="Origem do processo"></v-text-field>
+                                    <v-text-field v-model="table.origin" label="Origem do processo"></v-text-field>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -42,7 +42,7 @@
             </v-dialog>
             <v-data-table
                     :headers="headers"
-                    :items="areas"
+                    :items="table"
                     :expand="expand"
                     item-key="id"
                     :search="search"
@@ -63,10 +63,10 @@
                         <td>{{ props.item.name }}</td>
                         <td class="text-xs-right">{{ props.item.origin }}</td>
                         <td class="justify-center layout right px-0">
-                            <v-btn fab dark small color="warning" @click="">
+                            <v-btn fab dark small color="warning" :to="setRoute('edit', props.item.id)">
                                 <v-icon>edit</v-icon>
                             </v-btn>
-                            <v-btn fab dark small @click="" color="red darken-4">
+                            <v-btn fab dark small @click="deleteData(props.item.id, 'areas')" color="red darken-4">
                                 <v-icon>delete</v-icon>
                             </v-btn>
                         </td>
@@ -82,11 +82,13 @@
 <script>
     import { mapMutations } from "vuex"
     import { mapState } from "vuex"
+    import  Mixins from '../../mixin'
 
     export default {
+        mixins: [Mixins],
         data(){
             return{
-                areas: [],
+                //table: [],
                 search: '',
                 expand: true,
                 params: {
@@ -109,39 +111,13 @@
             }
         },
         mounted() {
-            this.index()
+            this.index('areas')
         },
         computed: {
             ...mapState(['showSearch', 'showForm','headerWindow']),
         },
         methods:{
             ...mapMutations(['showLoading', 'hideLoading','changeSearch']),
-            async index(){
-                try {
-                    this.showLoading({
-                        title: 'Carregando dados, aguarde...',
-                        color: 'primary'
-                    })
-
-                    axios.get(this.buildUrl())
-                        .then(response => {
-                            this.areas = response.data.areas.data;
-                            this.filters = response.data.filters;
-                            this.params = response.data.params;
-                            this.loading = !this.loading;
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            //this.message = response.body.message;
-                            //this.status = response.body.status
-                        })
-                }catch (e) {
-                    console.log(e)
-
-                }finally {
-                    this.hideLoading()
-                }
-            },
             buildUrl(){
                 let current_page    = `?page=${this.params.current_page}`;
                 let per_page        = `&per_page=${this.params.per_page}`;
@@ -149,7 +125,8 @@
                 let column          = `&column=${this.params.column}`;
                 let name            = this.filters.name === '' ? '' : `&name=${this.filters.name}`;
 
-                return `http://localhost:8000/api/areas/${current_page}${per_page}${direction}${column}${name}`;
+                return `areas/${current_page}${per_page}${direction}${column}${name}`;
+
             },
             viewFilterChange(){
                 this.viewFilter = !this.viewFilter;

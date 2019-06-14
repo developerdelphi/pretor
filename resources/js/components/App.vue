@@ -128,14 +128,8 @@
 <script>
 
     import { mapState } from "vuex"
-  //import navbar from './shared/navbar/navbar.vue'
-  //import dashboard from './dashboard/dashboard.vue'
 
 export default {
-    components: {
-        // navbar,
-        //dashboard
-    },
     data(){
         return{
             dark: true,

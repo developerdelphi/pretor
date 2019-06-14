@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,9 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/*** Rotas para Areas Controller */
 Route::post('areas/store', 'AreasController@store');
-Route::apiResource('areas', 'AreasController');
-//Route::apiResource('areas', 'AreasController',['except'=>['create', 'edit']]);
+Route::put('areas/update/{id}', 'AreasController@update');
+Route::delete('areas/destroy/{id}', 'AreasController@destroy');
+Route::get('areas/show/{id}', 'AreasController@show');
+Route::get('areas/index', 'AreasController@index');
+Route::get('areas', 'AreasController@index');
 
 Route::get('paises/listing','PaisesController@Listing');
 Route::get('estados/listing','EstadosController@Listing');

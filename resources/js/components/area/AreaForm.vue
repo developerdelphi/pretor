@@ -5,12 +5,16 @@
                 <v-flex xs12>
                     <v-text-field
                             prepend-icon="content_copy"
-                            v-model="area.name"
+                            v-model="table.name"
                             :rules="nameRules"
                             :error-messages="errors.name"
                             label="Nome da Área Processual"
                             required
-                            color="teal accent-2"></v-text-field>
+                            color="teal accent-2"
+                            validate-on-blur: true
+                            success: true
+
+                    ></v-text-field>
 
                 </v-flex>
                 <v-flex xs12>
@@ -20,20 +24,21 @@
                             item-value="value"
                             :error-messages="errors.origin"
                             prepend-icon="party_mode"
-                            v-model="area.origin"
+                            v-model="table.origin"
                             :rules="originRules"
                             label="Origem do Processo"
                             required
-                            color="teal accent-3">
+                            color="teal accent-3"
+                            validate-on-blur: true>
                     </v-select>
                 </v-flex>
                 <v-divider></v-divider>
                 <v-flex xs12>
-                    <v-btn color="primary" @click.stop.prevent="salvar">
+                    <v-btn color="primary" @click.prevent="saveData('areas')">
                         <v-icon>save</v-icon>
                         Salvar
                     </v-btn>
-                    <v-btn color="secundary" to="index">
+                    <v-btn color="secundary" @click="closeForm">
                         <v-icon>cancel</v-icon>
                         Cancelar
                     </v-btn>
@@ -46,14 +51,23 @@
 <script>
 
     import { mapMutations } from 'vuex'
+    import Mixin from '../../mixin'
 
 export default {
+    props:{
+        id: {
+            type: [String, Number],
+            required: false
+        }
+    },
+    mixins:[Mixin],
     data() {
         return {
             message: '',
             status: '',
             errors: [],
-            area: {
+            table: {
+                id: '',
                 name: '',
                 origin: ''
             },
@@ -73,26 +87,39 @@ export default {
             ]
         }
     },
-    methods: {
-        ...mapMutations(['showLoading', 'hideLoading','changeSearch']),
-        async salvar() {
-                console.log('chamando axios...')
-                this.showLoading({title: 'Carregando dados', color: 'primary'})
-                this.$http.post('/api/areas/store', this.area)
-                    .then(function (response) {
-                        console.log('resposta' + response)
-                        this.errors = response.errors
-                    })
-                    .catch(function (error) {
-                        console.log('deu ruim...')
-                        console.log(error.body)
-                        this.errors = error.body.errors
-                    })
-                this.hideLoading()
-        },
-
+    mounted(){
+        if(this.$route.params.id) {
+            this.loadForm(this.$route.params.id)
+            this.status = 'edit'
+        }else{
+            this.status = 'new'
+        }
     },
+    methods: {
+        ...mapMutations(['showLoading', 'hideLoading', 'changeSearch']),
 
+        async loadForm(id) {
+            this.showLoading({title: 'Carregando dados', color: 'primary'})
+            await this.$http.get('/api/areas/show/' + id)
+                .then(response => {
+                    console.log(response)
+                    this.table = response.body
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Formulário carregado para alteração de dados de : ' + this.table.name
+                    })
+                    this.hideLoading()
+
+                }, response => {
+                    this.errors = response.body.errors
+                    this.hideLoading()
+                })
+
+        },
+        closeForm(){
+            this.$router.push('/areas/index')
+        }
+    },
 }
 </script>
 

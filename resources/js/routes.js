@@ -40,11 +40,11 @@ export const routes = [
     },
     {
         path: '/areas',
-        //name: 'areas',
         component: Area,
         children: [
             { path: 'index', component: AreaIndex },
-            { path: 'form', component: AreaForm },
+            { path: 'new', component: AreaForm },
+            { path: 'edit/:id', component: AreaForm, props: true },
         ]
     }
 ]
