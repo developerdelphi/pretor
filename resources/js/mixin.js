@@ -1,10 +1,10 @@
 const Mixins = {
-    data(){
-        return{
-            table:[]
+    data() {
+        return {
+            table: []
         }
     },
-    created: function(){
+    created: function () {
         console.log('mixin carregado...')
     },
     methods: {
@@ -32,7 +32,7 @@ const Mixins = {
                                     'A informação foi removida do sistema.',
                                     'success'
                                 )
-                                this.index()
+                                this.index(route)
                             }, response => {
                                 Swal.fire(
                                     'Atenção!',
@@ -114,7 +114,7 @@ const Mixins = {
                 await axios.get(route)
                     .then(response => {
                         console.log(response.data)
-                        this.table = response.data.data;
+                        this.table = response.data;
                         this.loading = !this.loading;
                     })
                     .catch(error => {

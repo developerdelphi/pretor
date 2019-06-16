@@ -23,10 +23,10 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="table.name" label="Nome da Área"></v-text-field>
+                  <v-text-field v-model="table.name" label="Tipo de Proceso"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="table.origin" label="Origem do processo"></v-text-field>
+                  <v-text-field v-model="table.origin" label="Área Processual"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -63,7 +63,8 @@
         <template v-slot:items="props">
           <tr @click="props.expanded = !props.expanded">
             <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.origin }}</td>
+            <td class="text-xs-right">{{ props.item.area.name }}</td>
+            <td class="text-xs-right">{{ props.item.area.origin }}</td>
             <td class="justify-center layout right px-0">
               <v-btn fab dark small color="warning" :to="setRoute('edit', props.item.id)">
                 <v-icon>edit</v-icon>
@@ -72,7 +73,7 @@
                 fab
                 dark
                 small
-                @click="deleteData(props.item.id, 'areas')"
+                @click="deleteData(props.item.id, 'kinds')"
                 color="red darken-4"
               >
                 <v-icon>delete</v-icon>
@@ -99,27 +100,17 @@ export default {
       //table: [],
       search: "",
       expand: true,
-      params: {
-        total: 0,
-        per_page: 30,
-        current_page: 1,
-        column: "name",
-        direction: "asc"
-      },
       message: null,
       status: null,
-      filters: {
-        name: "",
-        origin: ""
-      },
       headers: [
-        { text: "Áreas", align: "center", sortable: true, value: "name" },
-        { text: "Origem", align: "center", value: "origin" }
+        { text: "Classes", align: "center", sortable: true, value: "name" },
+        { text: "Áreas", align: "center", value: "area.name" },
+        { text: "Origem", align: "center", value: "area.origin" }
       ]
     };
   },
   mounted() {
-    this.index("areas");
+    this.index("kinds");
   },
   computed: {
     ...mapState(["showSearch", "showForm", "headerWindow"])

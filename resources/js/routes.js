@@ -7,16 +7,53 @@ import AreaIndex from './components/area/AreaIndex.vue'
 import AreaForm from './components/area/AreaForm.vue'
 import Configure from './components/shared/conf/conf.vue'
 import Calendar from './components/agenda/calendar.vue'
+import Kind from './components/kind/Kind.vue'
+import KindForm from './components/kind/KindForm.vue'
+import KindIndex from './components/kind/KindIndex.vue'
 
-
-export const routes = [
-    {
+export const routes = [{
         path: '*',
         component: Dashboard
     },
     {
         path: '/dashboard',
         component: Dashboard
+    },
+    {
+        path: '/kinds',
+        component: Kind,
+        children: [{
+                path: 'index',
+                component: KindIndex
+            },
+            {
+                path: 'new',
+                component: KindForm
+            },
+            {
+                path: 'edit/:id',
+                component: KindForm,
+                props: true
+            },
+        ]
+    },
+    {
+        path: '/areas',
+        component: Area,
+        children: [{
+                path: 'index',
+                component: AreaIndex
+            },
+            {
+                path: 'new',
+                component: AreaForm
+            },
+            {
+                path: 'edit/:id',
+                component: AreaForm,
+                props: true
+            },
+        ]
     },
     {
         path: '/paises',
@@ -38,16 +75,4 @@ export const routes = [
         path: '/agenda',
         component: Calendar
     },
-    {
-        path: '/areas',
-        component: Area,
-        children: [
-            { path: 'index', component: AreaIndex },
-            { path: 'new', component: AreaForm },
-            { path: 'edit/:id', component: AreaForm, props: true },
-        ]
-    }
 ]
-
-
-

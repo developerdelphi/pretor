@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 use App\Models\Qualification;
-use App\Models\Peroson;
+use App\Models\Person;
 use App\Models\Attribute;
 
 $factory->define(Qualification::class, function (Faker $faker) {
