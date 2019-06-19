@@ -10,6 +10,9 @@ import Calendar from './components/agenda/calendar.vue'
 import Kind from './components/kind/Kind.vue'
 import KindForm from './components/kind/KindForm.vue'
 import KindIndex from './components/kind/KindIndex.vue'
+import Entity from './components/entity/Entity.vue'
+import EntityForm from './components/entity/EntityForm.vue'
+import EntityIndex from './components/entity/EntityIndex.vue'
 
 export const routes = [{
         path: '*',
@@ -18,6 +21,24 @@ export const routes = [{
     {
         path: '/dashboard',
         component: Dashboard
+    },
+    {
+        path: '/entities',
+        component: Entity,
+        children: [{
+                path: 'index',
+                component: EntityIndex
+            },
+            {
+                path: 'new',
+                component: EntityForm
+            },
+            {
+                path: 'edit/:id',
+                component: EntityForm,
+                props: true
+            },
+        ]
     },
     {
         path: '/kinds',

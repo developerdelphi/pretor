@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class KindRequest extends FormRequest
+class EntityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,15 @@ class KindRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|min:3',
-            'area_id' => 'required|exists:areas,id'
+            'name'  => 'required|min:3'
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'É necessário informar um nome para o Tipo de Processo',
-            'name.min' => 'O nome para o Tipo de Processo deve ter mais de 3 caracteres',
-            'area_id.required' => 'É necessário selecionar uma Área Processual Cadastrada',
-
+            'name.required' => 'É necessário informar um nome para Entidade',
+            'name.min' => 'O nome da Entidade deve ter mais de 3 caracteres',
         ];
     }
 }

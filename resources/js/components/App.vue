@@ -60,7 +60,13 @@
               </v-list-tile-action>
             </v-list-tile>
             <v-list-tile to="/kinds/index">
-              <v-list-tile-title>Classes</v-list-tile-title>
+              <v-list-tile-title>Tipos</v-list-tile-title>
+              <v-list-tile-action>
+                <v-icon>content_copy</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-list-tile to="/entities/index">
+              <v-list-tile-title>Entidades</v-list-tile-title>
               <v-list-tile-action>
                 <v-icon>content_copy</v-icon>
               </v-list-tile-action>

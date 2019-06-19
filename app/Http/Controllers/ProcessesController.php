@@ -3,43 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\KindRequest;
-use App\Models\Kind;
-use App\Models\Area;
+use App\Models\Process;
 
-
-class KindsController extends Controller
+class ProcessesController extends Controller
 {
-    private $kind;
+    private $process;
 
-    public function __construct(Kind $kind)
+    public function __construct(Process $entity)
     {
-        $this->kind = $kind;
+        $this->process = $process;
     }
+
     public function listing()
     {
-        $kinds = $this->kind->get();
-        return response()->json($kinds);
+        $processes = $this->process->get();
+        return response()->json( $processes);
     }
 
     public function index()
     {
-        $kinds = $this->kind->with('area:id,name,origin')->get();
-        return response()->json($kinds);
+        $processes = $this->process->get(); //->with('area:id,name,origin')->get();
+        return response()->json($processes);
     }
 
     public function show($id)
     {
-        if($id) $kind = Kind::find($id); else $kind = [];
-
-        //$areas = Area::orderBy('name', 'DESC')->get();
-        $areas = Area::get();
-        //if (count($kind) > 0)
-
+        ($id) ? $process = process::find($id) : $process = [];
         return response()->json([
-            'find'  => $kind,
-            'list'  => $areas
+            'find'  => $process
         ]);
+
 
         return response()->json([
             "error" => "Dados não localizados",
@@ -47,11 +40,11 @@ class KindsController extends Controller
         ]);
     }
 
-    public function store(KindRequest $request)
+    public function store(ProcessRequest $request)
     {
         $input = $request->all();
 
-        $this->kind->create($input);
+        $this->entity->create($input);
 
         return response()->json([
             "success" => true,
@@ -60,10 +53,10 @@ class KindsController extends Controller
         ]);
     }
 
-    public function update(KindRequest $request, $id)
+    public function update(ProcessRequest $request, $id)
     {
-        $kind = $this->kind->find($id);
-        $kind->update($request->all());
+        $process = $this->process->find($id);
+        $process->update($request->all());
         return response()->json([
             "success" => true,
             "status" => "positive",
@@ -74,7 +67,7 @@ class KindsController extends Controller
     public function destroy($id)
     {
         try {
-            $this->kind->destroy($id);
+            $this->process->destroy($id);
 
             return response()->json([
                 "success" => true,

@@ -89,7 +89,7 @@ export default {
     },
     mounted(){
         if(this.$route.params.id) {
-            this.loadForm(this.$route.params.id)
+            this.loadForm('areas', this.$route.params.id)
             this.status = 'edit'
         }else{
             this.status = 'new'
@@ -98,20 +98,31 @@ export default {
     methods: {
         ...mapMutations(['showLoading', 'hideLoading', 'changeSearch']),
 
-        async loadForm(id) {
+        async loadForm(route, id) {
             this.showLoading({title: 'Carregando dados', color: 'primary'})
-            await this.$http.get('/api/areas/show/' + id)
+            await axios.get(route + '/show/' + id)
                 .then(response => {
                     console.log(response)
-                    this.table = response.body
+                    this.table = response.data
                     Toast.fire({
                         type: 'success',
                         title: 'Formulário carregado para alteração de dados de : ' + this.table.name
                     })
-                    this.hideLoading()
-
-                }, response => {
-                    this.errors = response.body.errors
+                })
+                .catch(error => {
+                    if (error.response) {
+                        console.log('erro de response')
+                        console.log(error.response.data.errors)
+                        this.errors = error.response.data.errors
+                    } else if (error.request) {
+                        console.log('erro de request')
+                        console.log(error.request)
+                    } else {
+                        console.log('Error', error.message);
+                    }
+                    console.log(error.config);
+                })
+                .finally(() => {
                     this.hideLoading()
                 })
 

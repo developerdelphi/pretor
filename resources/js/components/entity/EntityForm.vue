@@ -8,33 +8,16 @@
                             v-model="table.name"
                             :rules="nameRules"
                             :error-messages="errors.name"
-                            label="Nome do Tipo de Processo"
+                            label="Nome da Entidade"
                             required
                             color="teal accent-2"
                             validate-on-blur: true
                             success: true
                     ></v-text-field>
                 </v-flex>
-                <v-flex xs8>
-                    <v-select
-                            :items="items"
-                            item-text="name_origin"
-                            item-value="id"
-                            :error-messages="errors.area_id"
-                            prepend-icon="party_mode"
-                            v-model="table.area_id"
-                            :rules="areaIdRules"
-                            label="Área Processual"
-                            required
-                            color="teal accent-3"
-                            validate-on-blur: true>
-                    </v-select>
-
-                </v-flex>
-
                 <v-flex xs12>
                     <v-divider></v-divider>
-                    <v-btn color="primary" @click.prevent="saveData('kinds')">
+                    <v-btn color="primary" @click.prevent="saveData('entities')">
                         <v-icon>save</v-icon>
                         Salvar
                     </v-btn>
@@ -69,12 +52,6 @@ export default {
             table: {
                 id: '',
                 name: '',
-                area_id: '',
-                area: {
-                    id: '',
-                    name: '',
-                    origin: ''
-                }
             },
             items: [
                 {label: 'Judicial', value: 'Judicial'},
@@ -84,19 +61,16 @@ export default {
             origin: '',
             nameRules: [
                 v => !!v || 'O nome é necessário!',
-                v => v.length >= 3 || 'O nome necessita ser maior que 3 caracteres!'
+                v => v.length >= 3 || 'O nome necessita ser maior que 5 caracteres!'
             ],
-            areaIdRules: [
-                v => !!v || 'O campo Área é necessário ter um valor!',
-            ]
         }
     },
     mounted(){
         if(this.$route.params.id) {
-            this.loadForm('kinds',this.$route.params.id)
+            this.loadForm('entities',this.$route.params.id)
             this.status = 'edit'
         }else{
-            this.loadForm('kinds')
+            this.loadForm('entities')
             this.status = 'new'
         }
     },
@@ -140,7 +114,7 @@ export default {
 
         },
         closeForm(){
-            this.$router.push('/kinds/index')
+            this.$router.push('/entities/index')
         }
     },
 }

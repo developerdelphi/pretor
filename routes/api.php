@@ -18,16 +18,30 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/** Rotas para Entidades */
+Route::get('entities','EntitiesController@index');
+Route::get('entities/index','EntitiesController@index');
+Route::get('entities/show/{id}','EntitiesController@show');
+Route::put('entities/update/{id}','EntitiesController@update');
+Route::post('entities/store','EntitiesController@store');
+Route::delete('entities/destroy/{id}','EntitiesController@destroy');
+
+/** Rotas para Tipos de Processos - Kinds */
+Route::get('kinds', 'KindsController@index');
 Route::get('kinds/show/{id}', 'KindsController@show');
-Route::apiResource('kinds', 'KindsController');
+Route::put('kinds/update/{id}', 'KindsController@update');
+Route::post('kinds/store', 'KindsController@store');
+Route::delete('kinds/destroy/{id}', 'KindsController@destroy');
+
 
 /*** Rotas para Areas Controller */
-Route::post('areas/store', 'AreasController@store');
-Route::put('areas/update/{id}', 'AreasController@update');
-Route::delete('areas/destroy/{id}', 'AreasController@destroy');
-Route::get('areas/show/{id}', 'AreasController@show');
-Route::get('areas/index', 'AreasController@index');
 Route::get('areas', 'AreasController@index');
+Route::get('areas/index', 'AreasController@index');
+Route::get('areas/show/{id}', 'AreasController@show');
+Route::get('areas/listing/{id}', 'AreasController@listing');
+Route::put('areas/update/{id}', 'AreasController@update');
+Route::post('areas/store', 'AreasController@store');
+Route::delete('areas/destroy/{id}', 'AreasController@destroy');
 
 Route::get('paises/listing', 'PaisesController@Listing');
 Route::get('estados/listing', 'EstadosController@Listing');

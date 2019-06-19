@@ -3,55 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\KindRequest;
-use App\Models\Kind;
-use App\Models\Area;
+use App\Http\Requests\EntityRequest;
+use App\Models\Entity;
 
-
-class KindsController extends Controller
+class EntitiesController extends Controller
 {
-    private $kind;
+    private $entity;
 
-    public function __construct(Kind $kind)
+    public function __construct(Entity $entity)
     {
-        $this->kind = $kind;
+        $this->entity = $entity;
     }
+
     public function listing()
     {
-        $kinds = $this->kind->get();
-        return response()->json($kinds);
+        $entities = $this->entity->get();
+        return response()->json($entities);
     }
 
     public function index()
     {
-        $kinds = $this->kind->with('area:id,name,origin')->get();
-        return response()->json($kinds);
+        $entities = $this->entity->get(); //->with('area:id,name,origin')->get();
+        return response()->json($entities);
     }
 
     public function show($id)
     {
-        if($id) $kind = Kind::find($id); else $kind = [];
-
-        //$areas = Area::orderBy('name', 'DESC')->get();
-        $areas = Area::get();
-        //if (count($kind) > 0)
-
+        ($id) ? $entity = entity::find($id) : $entity = [];
         return response()->json([
-            'find'  => $kind,
-            'list'  => $areas
+            'find'  => $entity
         ]);
 
-        return response()->json([
-            "error" => "Dados não localizados",
-            404
-        ]);
+
+            return response()->json([
+                "error" => "Dados não localizados",
+                404
+            ]);
+
     }
 
-    public function store(KindRequest $request)
+    public function store(EntityRequest $request)
     {
         $input = $request->all();
 
-        $this->kind->create($input);
+        $this->entity->create($input);
 
         return response()->json([
             "success" => true,
@@ -60,10 +55,10 @@ class KindsController extends Controller
         ]);
     }
 
-    public function update(KindRequest $request, $id)
+    public function update(EntityRequest $request, $id)
     {
-        $kind = $this->kind->find($id);
-        $kind->update($request->all());
+        $entity = $this->entity->find($id);
+        $entity->update($request->all());
         return response()->json([
             "success" => true,
             "status" => "positive",
@@ -74,7 +69,7 @@ class KindsController extends Controller
     public function destroy($id)
     {
         try {
-            $this->kind->destroy($id);
+            $this->entity->destroy($id);
 
             return response()->json([
                 "success" => true,

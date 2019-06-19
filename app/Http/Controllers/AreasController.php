@@ -31,7 +31,6 @@ class AreasController extends Controller
     public function store(AreaRequest $request)
     {
         $input = $request->all();
-
         $this->area->create($input);
 
         return response()->json([
@@ -43,9 +42,10 @@ class AreasController extends Controller
 
     public function show($id)
     {
-        $area = $this->area->find($id);
+        $area = Area::find($id);
 
-        if (count($area) > 0) return response()->json($area);
+        //if (count($area) > 0)
+        return response()->json($area);
 
         return response()->json([
             "error" => "Dados não localizados",
@@ -56,7 +56,6 @@ class AreasController extends Controller
     public function update(AreaRequest $request, $id)
     {
         $area = $this->area->find($id);
-
         $area->update($request->all());
 
         return response()->json([
@@ -76,7 +75,8 @@ class AreasController extends Controller
                 "status" => "positive",
                 "message" => message('MSG003')
             ]);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             return response()->json([
                 "success" => false,
                 "status" => "negative",

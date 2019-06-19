@@ -49,7 +49,6 @@
                                     type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"
-                                    v-model="params.per_page"
                                     @change="fetchData"
                             >
                             </button>
@@ -87,9 +86,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
-
-                </div>
             </div>
         </div>
     </div>
@@ -120,46 +116,9 @@
             }
         },
         methods: {
-            sort(column) {
-                if (column === this.params.column) {
-                    if (this.params.direction === 'desc') {
-                        this.params.direction = 'asc'
-                    } else {
-                        this.params.direction = 'desc'
-                    }
-                } else {
-                    this.params.column = column
-                    this.params.direction = 'asc'
-                }
-                this.fetchData()
-            },
-            next() {
-                if (this.params.next_page_url) {
-                    this.params.current_page++
-                    this.fetchData()
-                }
-            },
-            prev() {
-                if (this.params.prev_page_url) {
-                    this.params.current_page--
-                    this.fetchData()
-                }
-            },
-            fetchData(){
-                this.$emit('loadData');
-            },
             showFilterView() {
                 this.showFilter = ! this.showFilter;
             }
         },
     }
 </script>
-
-<style scoped>
-    .th-order{
-        cursor: pointer;
-    }
-    .current_page{
-        margin-top: 10px !important;
-    }
-</style>
