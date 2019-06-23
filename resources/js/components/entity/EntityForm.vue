@@ -1,5 +1,5 @@
 <template>
-    <v-form>
+    <v-form v-on:submit.prevent="saveData('entities')">
         <v-container>
             <v-layout row wrap>
                 <v-flex xs8>
@@ -17,11 +17,14 @@
                 </v-flex>
                 <v-flex xs12>
                     <v-divider></v-divider>
-                    <v-btn color="primary" @click.prevent="saveData('entities')">
+                    <v-btn
+                        color="primary"
+                        small
+                        @click.prevent="saveData('entities')">
                         <v-icon>save</v-icon>
                         Salvar
                     </v-btn>
-                    <v-btn color="secundary" @click="closeForm">
+                    <v-btn color="secundary" @click="closeForm" small>
                         <v-icon>cancel</v-icon>
                         Cancelar
                     </v-btn>
@@ -47,7 +50,7 @@ export default {
     data() {
         return {
             message: '',
-            status: '',
+            status: false,
             errors: [],
             table: {
                 id: '',
@@ -78,6 +81,7 @@ export default {
         ...mapMutations(['showLoading', 'hideLoading', 'changeSearch']),
 
         async loadForm(route, id) {
+            this.status = true;
             this.showLoading({title: 'Carregando dados', color: 'primary'})
             await axios.get(route + '/show/' + id)
                 .then(response => {
@@ -108,6 +112,7 @@ export default {
                 })
                 .finally( ()=>{
                     this.hideLoading()
+                    this.status = false
                 })
         },
         async loadRelations(route) {

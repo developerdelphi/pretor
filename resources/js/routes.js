@@ -13,6 +13,9 @@ import KindIndex from './components/kind/KindIndex.vue'
 import Entity from './components/entity/Entity.vue'
 import EntityForm from './components/entity/EntityForm.vue'
 import EntityIndex from './components/entity/EntityIndex.vue'
+import Process from './components/process/Process.vue'
+import ProcessIndex from './components/process/ProcessIndex.vue'
+import ProcessNew from './components/process/ProcessNew.vue'
 
 export const routes = [{
         path: '*',
@@ -21,6 +24,19 @@ export const routes = [{
     {
         path: '/dashboard',
         component: Dashboard
+    },
+    {
+        path: '/process',
+        component: Process,
+        children: [{
+                path: 'index',
+                component: ProcessIndex
+            },
+            {
+                path: 'new',
+                component: ProcessNew
+            },
+        ]
     },
     {
         path: '/entities',

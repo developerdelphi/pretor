@@ -29,9 +29,7 @@
                             color="teal accent-3"
                             validate-on-blur: true>
                     </v-select>
-
                 </v-flex>
-
                 <v-flex xs12>
                     <v-divider></v-divider>
                     <v-btn color="primary" @click.prevent="saveData('kinds')">

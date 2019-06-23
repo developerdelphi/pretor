@@ -15,10 +15,16 @@ class AreasController extends Controller
         $this->area = $area;
     }
 
-    public function listing()
+    public function listing($origin)
     {
+        if ($origin) {
+            $list = Area::where('origin', $origin)->get();
+        } else {
+            $list = Area::get();
+        }
+
         return response()->json([
-            'list' => Area::get()
+            'list' => $list
         ], 200);
     }
 
@@ -75,8 +81,7 @@ class AreasController extends Controller
                 "status" => "positive",
                 "message" => message('MSG003')
             ]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 "success" => false,
                 "status" => "negative",

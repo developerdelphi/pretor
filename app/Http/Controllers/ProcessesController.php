@@ -9,7 +9,7 @@ class ProcessesController extends Controller
 {
     private $process;
 
-    public function __construct(Process $entity)
+    public function __construct(Process $process)
     {
         $this->process = $process;
     }
@@ -17,7 +17,7 @@ class ProcessesController extends Controller
     public function listing()
     {
         $processes = $this->process->get();
-        return response()->json( $processes);
+        return response()->json($processes);
     }
 
     public function index()

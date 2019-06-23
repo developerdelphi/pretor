@@ -16,10 +16,16 @@ class KindsController extends Controller
     {
         $this->kind = $kind;
     }
-    public function listing()
+    public function listing($area)
     {
-        $kinds = $this->kind->get();
-        return response()->json($kinds);
+        if($area){
+            $list = $this->kind->where('area_id', $area)->get();
+        }else{
+            $list = $this->kind->get();
+        }
+        return response()->json([
+            'list' => $list
+        ], 200);
     }
 
     public function index()
@@ -30,7 +36,8 @@ class KindsController extends Controller
 
     public function show($id)
     {
-        if($id) $kind = Kind::find($id); else $kind = [];
+        if ($id) $kind = Kind::find($id);
+        else $kind = [];
 
         //$areas = Area::orderBy('name', 'DESC')->get();
         $areas = Area::get();

@@ -40,7 +40,15 @@
             <v-list-tile-title>Dashboard</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-group prepend-icon="account_circle" valu="true">
+        <v-list-tile to="/process/index">
+          <v-list-tile-action>
+            <v-icon>gavel</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Processos</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-group prepend-icon="account_circle" value="true">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-title>Sistema</v-list-tile-title>
@@ -62,13 +70,13 @@
             <v-list-tile to="/kinds/index">
               <v-list-tile-title>Tipos</v-list-tile-title>
               <v-list-tile-action>
-                <v-icon>content_copy</v-icon>
+                <v-icon>assignment</v-icon>
               </v-list-tile-action>
             </v-list-tile>
             <v-list-tile to="/entities/index">
               <v-list-tile-title>Entidades</v-list-tile-title>
               <v-list-tile-action>
-                <v-icon>content_copy</v-icon>
+                <v-icon>domain</v-icon>
               </v-list-tile-action>
             </v-list-tile>
           </v-list-group>

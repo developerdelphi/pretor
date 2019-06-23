@@ -18,13 +18,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/** Rotas para Processos */
+Route::get('processes', 'ProcessesController@index');
+Route::get('processes/index', 'ProcessesController@index');
+Route::get('processes/show/{id}', 'ProcessesController@show');
+Route::put('processes/update/{id}', 'ProcessesController@update');
+Route::post('processes/store', 'ProcessesController@store');
+Route::delete('processes/destroy/{id}', 'ProcessesController@destroy');
+
 /** Rotas para Entidades */
-Route::get('entities','EntitiesController@index');
-Route::get('entities/index','EntitiesController@index');
-Route::get('entities/show/{id}','EntitiesController@show');
-Route::put('entities/update/{id}','EntitiesController@update');
-Route::post('entities/store','EntitiesController@store');
-Route::delete('entities/destroy/{id}','EntitiesController@destroy');
+Route::get('entities', 'EntitiesController@index');
+Route::get('entities/index', 'EntitiesController@index');
+Route::get('entities/show/{id}', 'EntitiesController@show');
+Route::put('entities/update/{id}', 'EntitiesController@update');
+Route::post('entities/store', 'EntitiesController@store');
+Route::delete('entities/destroy/{id}', 'EntitiesController@destroy');
 
 /** Rotas para Tipos de Processos - Kinds */
 Route::get('kinds', 'KindsController@index');

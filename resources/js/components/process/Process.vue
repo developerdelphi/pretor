@@ -1,6 +1,6 @@
 <template>
   <v-flex sm12>
-    <v-card elevation="1" dark flat hover>
+    <v-card elevation="1" dark hover>
       <Heading
         icone="headerWindow.icon"
         color="purple"
@@ -22,7 +22,7 @@ import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      icone: "domain"
+      icone: "gavel"
     };
   },
   components: {
@@ -36,9 +36,9 @@ export default {
   },
   created() {
     this.setheaderWindow({
-      title: "Entidades",
-      subTitle: "Cadastro de Entidades Processuais",
-      color: "teal darken-1",
+      title: "Processos",
+      subTitle: "Listagem de Processos",
+      color: "blue darken-1",
       icon: this.icone
     });
   }

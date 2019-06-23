@@ -22,7 +22,7 @@ import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      icone: "content_copy"
+      icone: "assignment"
     };
   },
   components: {
@@ -39,7 +39,7 @@ export default {
       title: "Tipo de Processo",
       subTitle: "Cadastro de Classes Processuais",
       color: "teal darken-1",
-      icon: "content_copy"
+      icon: this.icone
     });
   }
 };
