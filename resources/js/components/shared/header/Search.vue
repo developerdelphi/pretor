@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="input-group mb-3">
-            <input type="text" class="form-control form-control-sm" placeholder="Buscar por..." aria-label="Nome para buscar" aria-describedby="button-addon2">
+            <input type="text" class="form-control form-control-sm" placeholder="Buscar informações de..." aria-label="Nome para buscar" aria-describedby="button-addon2">
             <div class="input-group-append">
                 <button class="btn btn-primary btn-sm" type="button" id="button-addon2" @click.prevent="fetchData">
                     <i class="material-icons">search</i>

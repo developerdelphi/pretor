@@ -4,7 +4,7 @@
             <v-btn icon to="index">
                 <v-icon medium class="elevation-4 pa-2">{{ headerWindow.icon }}</v-icon>
             </v-btn>
-            <v-toolbar-title>
+            <v-toolbar-title class="pb-0">
                 {{ headerWindow.title }}
             </v-toolbar-title>
             <v-spacer></v-spacer>

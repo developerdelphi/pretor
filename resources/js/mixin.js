@@ -45,64 +45,68 @@ const Mixins = {
                 })
         },
         async saveData(route) {
-            this.showLoading({
-                title: 'Carregando dados',
-                color: 'primary'
-            })
-            if (this.status === 'new') {
-                await axios.post(route + '/store', this.table)
-                    .then(response => {
-                        // console.log(response.data.message)
-                        this.message = response.data.message
-                        Toast.fire({
-                            type: 'success',
-                            title: response.data.message
+            this.showLoading({ title: 'Carregando dados', color: 'primary' })
+            switch (this.status) {
+                case 'new':
+                    await axios.post(route + '/store', this.table)
+                        .then(response => {
+                            // console.log(response.data.message)
+                            this.message = response.data.message
+                            Toast.fire({
+                                type: 'success',
+                                title: response.data.message
+                            })
+                            this.closeForm()
                         })
-                        this.closeForm()
-                    })
-                    .catch(error => {
-                        if (error.response) {
-                            console.log('erro de response')
-                            console.log(error.response.data.errors)
-                            this.errors = error.response.data.errors
-                        } else if (error.request) {
-                            console.log('erro de request')
-                            console.log(error.request)
-                        } else {
-                            console.log('Error', error.message);
-                        }
-                        console.log(error.config);
-                    })
-                    .finally(() => {
-                        this.hideLoading()
-                    })
-            } else {
-                await axios.put(route + '/update/' + this.id, this.table)
-                    .then(response => {
-                        this.message = response.data.message
-                        Toast.fire({
-                            type: 'success',
-                            title: response.data.message
+                        .catch(error => {
+                            if (error.response) {
+                                console.log('erro de response')
+                                console.log(error.response.data.errors)
+                                this.errors = error.response.data.errors
+                            } else if (error.request) {
+                                console.log('erro de request')
+                                console.log(error.request)
+                            } else {
+                                console.log('Error', error.message);
+                            }
+                            console.log(error.config);
                         })
-                        //this.hideLoading()
-                        this.closeForm()
-                    })
-                    .catch(error => {
-                        if (error.response) {
-                            console.log('erro de response')
-                            console.log(error.response.data.errors)
-                            this.errors = error.response.data.errors
-                        } else if (error.request) {
-                            console.log('erro de request')
-                            console.log(error.request)
-                        } else {
-                            console.log('Error', error.message);
-                        }
-                        console.log(error.config);
-                        //this.hideLoading()
-                    }).finally(() => {
-                        this.hideLoading()
-                    })
+                        .finally(() => {
+                            this.hideLoading()
+                        })
+                    break;
+                case 'edit' :
+                    await axios.put(route + '/update/' + this.id, this.table)
+                        .then(response => {
+                            this.message = response.data.message
+                            Toast.fire({
+                                type: 'success',
+                                title: response.data.message
+                            })
+                            //this.hideLoading()
+                            this.closeForm()
+                        })
+                        .catch(error => {
+                            if (error.response) {
+                                console.log('erro de response')
+                                console.log(error.response.data.errors)
+                                this.errors = error.response.data.errors
+                            } else if (error.request) {
+                                console.log('erro de request')
+                                console.log(error.request)
+                            } else {
+                                console.log('Error', error.message);
+                            }
+                            console.log(error.config);
+                            //this.hideLoading()
+                        }).finally(() => {
+                            this.hideLoading()
+                        })
+                    break;
+                default:
+                    console.log('Parâmetro para saveData() não localizado');
+                    this.hideLoading();
+                    break;
             }
         },
         async index(route) {

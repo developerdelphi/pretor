@@ -2,41 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\EntityRequest;
-use App\Models\Entity;
+use App\Http\Requests\PersonaRequest;
+use App\Models\Persona;
 
-class EntitiesController extends Controller
+class PersonasController extends Controller
 {
-    private $entity;
+    private $persona;
 
-    public function __construct(Entity $entity)
+    public function __construct(Persona $persona)
     {
-        $this->entity = $entity;
+        $this->persona = $persona;
     }
 
-    public function search($name){
-        $entities = $this->entity->where('name', 'like', "%$name%")->get();
-        return response()->json(['list'=>$entities]);
+    public function search($name)
+    {
+        $personas = $this->persona->where('name', 'like', "%$name%")->get();
+        return response()->json(['list' => $personas]);
     }
 
     public function listing()
     {
-        $entities = $this->entity->get();
-        return response()->json($entities);
+        $personas = $this->persona->get();
+        return response()->json($personas);
     }
 
     public function index()
     {
-        $entities = $this->entity->get(); //->with('area:id,name,origin')->get();
-        return response()->json($entities);
+        $personas = $this->persona->get(); //->with('area:id,name,origin')->get();
+        return response()->json($personas);
     }
 
     public function show($id)
     {
-        ($id) ? $entity = entity::find($id) : $entity = [];
+        ($id) ? $persona = persona::find($id) : $persona = [];
         return response()->json([
-            'find'  => $entity
+            'find'  => $persona
         ]);
         return response()->json([
             "error" => "Dados não localizados",
@@ -44,11 +44,11 @@ class EntitiesController extends Controller
         ]);
     }
 
-    public function store(EntityRequest $request)
+    public function store(PersonaRequest $request)
     {
         $input = $request->all();
 
-        $this->entity->create($input);
+        $this->persona->create($input);
 
         return response()->json([
             "success" => true,
@@ -57,10 +57,10 @@ class EntitiesController extends Controller
         ]);
     }
 
-    public function update(EntityRequest $request, $id)
+    public function update( PersonaRequest $request, $id)
     {
-        $entity = $this->entity->find($id);
-        $entity->update($request->all());
+        $persona = $this->persona->find($id);
+        $persona->update($request->all());
         return response()->json([
             "success" => true,
             "status" => "positive",
@@ -71,7 +71,7 @@ class EntitiesController extends Controller
     public function destroy($id)
     {
         try {
-            $this->entity->destroy($id);
+            $this->persona->destroy($id);
 
             return response()->json([
                 "success" => true,

@@ -79,6 +79,20 @@
                 <v-icon>domain</v-icon>
               </v-list-tile-action>
             </v-list-tile>
+            <v-list-group no-action sub-group value="false">
+                <template v-slot:activator>
+                    <v-list-tile>
+                        <v-list-tile-title>Pessoas</v-list-tile-title>
+                        <v-list-tile-action></v-list-tile-action>
+                    </v-list-tile>
+                </template>
+                <v-list-tile to="/personas/index">
+                <v-list-tile-title>Listar</v-list-tile-title>
+                <v-list-tile-action>
+                    <v-icon>person</v-icon>
+                </v-list-tile-action>
+                </v-list-tile>
+            </v-list-group>
           </v-list-group>
         </v-list-group>
         <v-list-tile>

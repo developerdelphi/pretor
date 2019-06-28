@@ -17,6 +17,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+/** Rotas para Pessoas */
+Route::get('personas', 'PersonasController@index');
+Route::get('personas/index', 'PersonasController@index');
+Route::get('personas/show/{id}', 'PersonasController@show');
+Route::put('personas/update/{id}', 'PersonasController@update');
+Route::post('personas/store', 'PersonasController@store');
+Route::delete('personas/destroy/{id}', 'PersonasController@destroy');
 
 /** Rotas para Processos */
 Route::get('processes', 'ProcessesController@index');
@@ -30,6 +37,8 @@ Route::delete('processes/destroy/{id}', 'ProcessesController@destroy');
 Route::get('entities', 'EntitiesController@index');
 Route::get('entities/index', 'EntitiesController@index');
 Route::get('entities/show/{id}', 'EntitiesController@show');
+Route::get('entities/search/{name}', 'EntitiesController@search');
+Route::get('entities/listing/{id}', 'EntitiesController@listing');
 Route::put('entities/update/{id}', 'EntitiesController@update');
 Route::post('entities/store', 'EntitiesController@store');
 Route::delete('entities/destroy/{id}', 'EntitiesController@destroy');
@@ -37,6 +46,7 @@ Route::delete('entities/destroy/{id}', 'EntitiesController@destroy');
 /** Rotas para Tipos de Processos - Kinds */
 Route::get('kinds', 'KindsController@index');
 Route::get('kinds/show/{id}', 'KindsController@show');
+Route::get('kinds/listing/{id}', 'KindsController@listing');
 Route::put('kinds/update/{id}', 'KindsController@update');
 Route::post('kinds/store', 'KindsController@store');
 Route::delete('kinds/destroy/{id}', 'KindsController@destroy');

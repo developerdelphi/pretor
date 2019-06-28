@@ -81,7 +81,7 @@ export default {
         ...mapMutations(['showLoading', 'hideLoading', 'changeSearch']),
 
         async loadForm(route, id) {
-            this.status = true;
+            //this.status = true
             this.showLoading({title: 'Carregando dados', color: 'primary'})
             await axios.get(route + '/show/' + id)
                 .then(response => {
@@ -112,7 +112,7 @@ export default {
                 })
                 .finally( ()=>{
                     this.hideLoading()
-                    this.status = false
+                   // this.status = false
                 })
         },
         async loadRelations(route) {

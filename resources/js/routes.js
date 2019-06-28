@@ -16,6 +16,9 @@ import EntityIndex from './components/entity/EntityIndex.vue'
 import Process from './components/process/Process.vue'
 import ProcessIndex from './components/process/ProcessIndex.vue'
 import ProcessNew from './components/process/ProcessNew.vue'
+import Persona from './components/persona/Persona.vue'
+import PersonaIndex from './components/persona/PersonaIndex.vue'
+import PersonaForm from './components/persona/PersonaForm.vue'
 
 export const routes = [{
         path: '*',
@@ -24,6 +27,23 @@ export const routes = [{
     {
         path: '/dashboard',
         component: Dashboard
+    },
+    {
+        path: '/personas',
+        component: Persona,
+        children: [{
+                path: 'index',
+                component: PersonaIndex
+            },
+            {
+                path: 'new',
+                component: PersonaForm
+            },
+            {
+                path: 'edit/:id',
+                component: PersonaForm
+            }
+        ]
     },
     {
         path: '/process',

@@ -15,7 +15,6 @@ class CreateProcessesTable extends Migration
     {
         Schema::create('processes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('number', 50);
             $table->string('archivy', 20);
             $table->string('sts', 30);
             $table->softDeletes();

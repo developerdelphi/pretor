@@ -18,6 +18,8 @@ class CreateKindsProcessesTable extends Migration
             $table->integer('kind_id')->unsigned();
             $table->integer('process_id')->unsigned();
             $table->integer('entity_id')->unsigned();
+            $table->string('number', 50)->nullable();
+            $table->smallInteger('order')->default(0);
             $table->foreign('kind_id')->references('id')->on('kinds');
             $table->foreign('process_id')->references('id')->on('processes');
             $table->foreign('entity_id')->references('id')->on('entities');
