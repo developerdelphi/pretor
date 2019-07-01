@@ -17,6 +17,14 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/** Rotas para Atributos de Qualificação */
+Route::get('attributes', 'AttributesController@index');
+Route::get('attributes/index', 'AttributesController@index');
+Route::get('attributes/show/{id}', 'AttributesController@show');
+Route::put('attributes/update/{id}', 'AttributesController@update');
+Route::post('attributes/store', 'AttributesController@store');
+Route::delete('attributes/destroy/{id}', 'AttributesController@destroy');
 /** Rotas para Pessoas */
 Route::get('personas', 'PersonasController@index');
 Route::get('personas/index', 'PersonasController@index');

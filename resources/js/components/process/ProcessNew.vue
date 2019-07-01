@@ -140,8 +140,8 @@
                     </v-stepper-content>
                 </v-stepper-items>
             </v-stepper>
-        <router-view/>
-      </v-fade-transition>
+        <!-- <router-view/>
+      </v-fade-transition> --->
     </v-card>
   </v-flex>
 </template>

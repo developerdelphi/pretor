@@ -19,6 +19,12 @@ import ProcessNew from './components/process/ProcessNew.vue'
 import Persona from './components/persona/Persona.vue'
 import PersonaIndex from './components/persona/PersonaIndex.vue'
 import PersonaForm from './components/persona/PersonaForm.vue'
+import Attribute from './components/attribute/Attribute.vue'
+import AttributeIndex from './components/attribute/AttributeIndex.vue'
+import AttributeForm from './components/attribute/AttributeForm.vue'
+import Qualification from './components/qualification/Qualification.vue'
+import QualificationIndex from './components/qualification/QualificationIndex.vue'
+import QualificationForm from './components/qualification/QualificationForm.vue'
 
 export const routes = [{
         path: '*',
@@ -27,6 +33,40 @@ export const routes = [{
     {
         path: '/dashboard',
         component: Dashboard
+    },
+    {
+        path: '/attributes',
+        component: Attribute,
+        children: [{
+                path: 'index',
+                component: AttributeIndex
+            },
+            {
+                path: 'new',
+                component: AttributeForm
+            },
+            {
+                path: 'edit/:id',
+                component: AttributeForm
+            }
+        ]
+    },
+    {
+        path: '/qualifications',
+        component: Qualification,
+        children: [{
+                path: 'index',
+                component: QualificationIndex
+            },
+            {
+                path: 'new',
+                component: QualificationForm
+            },
+            {
+                path: 'edit/:id',
+                component: QualificationForm
+            }
+        ]
     },
     {
         path: '/personas',

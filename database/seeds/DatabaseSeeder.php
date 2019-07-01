@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AreasTableSeeder::class);
+        //$this->call(AreasTableSeeder::class);
         //$this->call(PaisesTableSeeder::class);
         //$this->call(EstadosTableSeeder::class);
         //$this->call(CidadesTableSeeder::class);
@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
         //$this->call(PersonasTableSeeder::class);
         //$this->call(AddressesTableSeeder::class);
         //$this->call(PhonesTableSeeder::class);
-        //$this->call(AttributesTableSeeder::class);
+        $this->call(AttributesTableSeeder::class);
         //$this->call(QualificationsTableSeeder::class);
-        $this->call(KindsTableSeeder::class);
+        //$this->call(KindsTableSeeder::class);
         //$this->call(EntitiesTableSeeder::class);
     }
 }

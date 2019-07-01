@@ -45,7 +45,10 @@ const Mixins = {
                 })
         },
         async saveData(route) {
-            this.showLoading({ title: 'Carregando dados', color: 'primary' })
+            this.showLoading({
+                title: 'Carregando dados',
+                color: 'primary'
+            })
             switch (this.status) {
                 case 'new':
                     await axios.post(route + '/store', this.table)
@@ -75,8 +78,8 @@ const Mixins = {
                             this.hideLoading()
                         })
                     break;
-                case 'edit' :
-                    await axios.put(route + '/update/' + this.id, this.table)
+                case 'edit':
+                    await axios.put(route + '/update/' + this.table.id, this.table)
                         .then(response => {
                             this.message = response.data.message
                             Toast.fire({

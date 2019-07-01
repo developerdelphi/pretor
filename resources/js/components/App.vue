@@ -80,18 +80,30 @@
               </v-list-tile-action>
             </v-list-tile>
             <v-list-group no-action sub-group value="false">
-                <template v-slot:activator>
-                    <v-list-tile>
-                        <v-list-tile-title>Pessoas</v-list-tile-title>
-                        <v-list-tile-action></v-list-tile-action>
-                    </v-list-tile>
-                </template>
-                <v-list-tile to="/personas/index">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-title>Pessoas</v-list-tile-title>
+                  <v-list-tile-action></v-list-tile-action>
+                </v-list-tile>
+              </template>
+              <v-list-tile to="/personas/index">
                 <v-list-tile-title>Listar</v-list-tile-title>
                 <v-list-tile-action>
-                    <v-icon>person</v-icon>
+                  <v-icon>person</v-icon>
                 </v-list-tile-action>
-                </v-list-tile>
+              </v-list-tile>
+              <v-list-tile to="/qualifications/index">
+                <v-list-tile-title>Qualificações</v-list-tile-title>
+                <v-list-tile-action>
+                  <v-icon>ballot</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+              <v-list-tile to="/attributes/index">
+                <v-list-tile-title>Atributos</v-list-tile-title>
+                <v-list-tile-action>
+                  <v-icon>note_add</v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
             </v-list-group>
           </v-list-group>
         </v-list-group>
